@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public float playerHorizontalSpeed;
+    private float minX = -2.55f;
+    private float maxX = 2.55f;
 
     void Update()
     {
@@ -26,6 +28,23 @@ public class PlayerScript : MonoBehaviour
             currentPosition.x -= playerHorizontalSpeed * Time.deltaTime; // Move Left
         }
 
+        if(currentPosition.x < minX)
+        {
+            currentPosition.x = minX;
+        }
+        if (currentPosition.x > maxX)
+        {
+            currentPosition.x = maxX;
+        }
+
         transform.position = currentPosition;
+    }
+
+    private void OnTriggerEnter2D(Collider2D target)
+    {
+        if(target.tag == "Bomb")
+        {
+            Time.timeScale = 0f;
+        }
     }
 }
